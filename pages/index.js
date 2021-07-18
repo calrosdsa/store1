@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Header from '../components/Header'
+import Example from '../components/ListBox'
 import ProductsFeed from '../components/ProductsFeed'
 
 export default function Home({posts,categories}) {
@@ -9,12 +10,12 @@ export default function Home({posts,categories}) {
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-    <Header data={categories}/>
-    <ProductsFeed posts={posts}/>      
+    <Header data={categories} posts={posts}/>
+    <ProductsFeed posts={posts}/>   
     </div>
   )
 }
-export async function getStaticProps(){
+export async function getServerSideProps(){
   const res = await fetch("https://djangoapi3.herokuapp.com/api/");
   const posts= await res.json();
   const ress=await fetch("https://djangoapi3.herokuapp.com/api/category/")
