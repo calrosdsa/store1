@@ -5,7 +5,7 @@ function ProductsFeed({posts}) {
     return (
         <div className=" overflow-x-auto mt-1 ">
         <div className="flex  lg:grid-cols-4 2xl:grid-cols-5 m-4">
-            {posts.map(({title,slug,id,image,description,specifications})=>(
+            {posts.map(({title,slug,id,image,description,specifications,regular_price})=>(
                 <Prodcuts
                 key={id}
                 id={id}
@@ -14,6 +14,7 @@ function ProductsFeed({posts}) {
                 description={description}
                 slug={slug}
                 specifications={specifications}
+                regular_price={regular_price}
                 />
                 ))}
         </div>

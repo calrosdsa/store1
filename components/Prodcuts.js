@@ -1,9 +1,15 @@
 import React from 'react'
 import {useRouter} from 'next/router'
 import Image from 'next/image'
-
-function Prodcuts({slug,id, title,image,description,specifications}) {
+import {useDispatch} from 'react-redux'
+import {addToBasket} from '../slice/basketSlice'
+function Prodcuts({slug,id, title,image,description,specifications,regular_price}) {
   const router=useRouter();
+  const dispatch=useDispatch();
+  const addItemToBasket=()=>{
+    const product={slug,id, title,image,description,specifications,regular_price}
+    dispatch(addToBasket(product))
+  }
  
   return (
       <div>
@@ -20,8 +26,10 @@ function Prodcuts({slug,id, title,image,description,specifications}) {
           />
                 
             <p className="text-xs line-clamp-2">{description}</p>
+            <h1>{regular_price}</h1>
               </div>
         </div>
+        <button onClick={addItemToBasket}>Add to Basket</button>
           </div>
     )
 }

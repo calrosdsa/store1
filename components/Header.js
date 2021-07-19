@@ -1,10 +1,12 @@
 import React,{Fragment,useState}from 'react'
 import {useRouter} from 'next/router'
 import {Menu,Transition,Listbox} from '@headlessui/react'
-import {ArrowDownIcon,MenuAlt1Icon,SearchIcon,ShoppingCartIcon,XIcon} from "@heroicons/react/solid"
+import {ArrowDownIcon,MenuAlt1Icon,SearchIcon,ShoppingCartIcon,XIcon,UserIcon} from "@heroicons/react/solid"
 import {useSelector} from "react-redux"
 import {selectItems} from "../slice/basketSlice"
+import {useSession,signIn} from 'next-auth/client'
 function Header({data,posts}) {
+    const [session]=useSession();
     const items=useSelector(selectItems)
     const [keyword,setKeyword]=useState([]);
     const router=useRouter();
@@ -23,17 +25,18 @@ function Header({data,posts}) {
         <div className=" relative">
             <div  className="grid grid-rows-3  grid-cols-3 md:grid-rows-2 md:grid-cols-5  bg-gray-900 md:p-1">
                 <div  className="row-start-1 flex justify-between " >
-            <h1  className="text-xl text-gray-300 hover:text-gray-50 ml-2 font-bold italic sm:text-2xl xl:text-4xl">
+            <h1  className="flex text-xl text-gray-300 hover:text-gray-50 ml-2 font-bold italic sm:text-2xl xl:text-4xl">
+                <MenuAlt1Icon className="h-7 mr-4 text-gray-400 hover:text-white"/>
                 Ashop
                 </h1>
                 </div>
                 <div className="relative flex m-1 space-x-3 col-start-3 justify-end md:col-start-5">
                 <ShoppingCartIcon onClick={()=>router.push('../checkout/')} className="h-7 text-gray-400  hover:text-white  "/>
+                <UserIcon onClick={signIn} className="h-7 mr-4 text-gray-400 hover:text-white"/>
                 {items ==0?<span className="absolute bg-gray-900 text-gray-100 right-8 -top-1"></span>:
                 <span className="absolute bg-gray-900 text-gray-100 right-8 -top-1">{items.length}</span>
                 
                 }
-                <MenuAlt1Icon className="h-7 text-gray-400 hover:text-white"/>
                 </div>
             <div className="row-start-2  relative md:row-start-1 md:col-start-2 col-span-3 ">
             <div className="relative ">
