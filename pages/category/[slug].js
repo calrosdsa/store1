@@ -8,7 +8,7 @@ if(router.isFallback){
     return <div></div>
 }
     return(
-        <div>
+        <div className="mt-32">
             <Header data={categories}/>       
          <ProductsFeed posts={posts}/>
         

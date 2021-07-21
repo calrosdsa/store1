@@ -22,8 +22,8 @@ function Header({data,posts}) {
     }
     }
     return (
-        <div className=" relative">
-            <div  className="grid grid-rows-3  grid-cols-3 md:grid-rows-2 md:grid-cols-5  bg-gray-900 md:p-1">
+        <div className="fixed top-0 right-0 left-0 ">
+            <div  className="relative  grid grid-rows-3  grid-cols-3 md:grid-rows-2 md:grid-cols-5  bg-gray-900 md:p-1">
                 <div  className="row-start-1 flex justify-between " >
             <h1  className="flex text-xl text-gray-300 hover:text-gray-50 ml-2 font-bold italic sm:text-2xl xl:text-4xl">
                 <MenuAlt1Icon className="h-7 mr-4 text-gray-400 hover:text-white"/>
@@ -50,7 +50,7 @@ function Header({data,posts}) {
                 
                 <div className="absolute  bg-white min-w-full ">
                 {keyword.slice(0,5).map((post) => (
-                    <div className="row-start-2 " onClick={()=>router.push(`../product/${encodeURIComponent(post.slug)}`)}>
+                    <div key={post.id} className="row-start-2 " onClick={()=>router.push(`../product/${encodeURIComponent(post.slug)}`)}>
                     <h1 className="row-start-2">{post.title}</h1>
                 </div>
               ))}

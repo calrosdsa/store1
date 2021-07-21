@@ -3,6 +3,7 @@ import {useDispatch} from 'react-redux'
 import {addToBasket} from "../slice/basketSlice"
 import Image from "next/image"
 import {useRouter} from 'next/router'
+import {motion,AnimatePresence,AnimateSharedLayout} from 'framer-motion'
 
 function Producto({title,id,description,image,regular_price,specifications,slug}) {
     const router=useRouter();
@@ -14,6 +15,8 @@ function Producto({title,id,description,image,regular_price,specifications,slug}
     }
     return (
         <div >
+            <AnimateSharedLayout>
+
    <div key={id} className="items-center" >
 
 <div onClick={()=>router.push(`../product/${encodeURIComponent(slug)}`)} className="">
@@ -22,6 +25,7 @@ function Producto({title,id,description,image,regular_price,specifications,slug}
 <div className="">
 
        <Image
+       as={motion.img}
        src={image}
        height={330}
        width={350}
@@ -44,6 +48,7 @@ function Producto({title,id,description,image,regular_price,specifications,slug}
 </div>
    </div>
             
+       </AnimateSharedLayout>
         </div>
     )
 }
