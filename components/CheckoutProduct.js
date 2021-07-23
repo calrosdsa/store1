@@ -1,15 +1,18 @@
-import React from 'react'
-import {addToBasket} from '../slice/basketSlice'
+import React,{useState} from 'react'
+import {addToBasket,removeFromBasket} from '../slice/basketSlice'
 import { useDispatch } from "react-redux"
-import Image from 'next/image'
 import {useRouter} from 'next/router'
-function CheckoutProduct({title,slug,regular_price,image,description,id}) {
+function CheckoutProduct({title,slug,price,image,description,id}) {
+    const [counter, setCounter] = useState(0)
     const router=useRouter();
     const dispatch=useDispatch();
     const addItemToBasket=()=>{
-        const products={title,slug,regular_price,image,description,id}
+        const products={title,slug,price,image,description,id}
         dispatch(addToBasket(products))
     }
+    const removeItemFromBasket = () => {
+        dispatch(removeFromBasket({id}));
+    };
     return (
         <div>
             <h1 className="text-base font-bold">{title}</h1>
@@ -26,13 +29,15 @@ function CheckoutProduct({title,slug,regular_price,image,description,id}) {
             />
             </div>
             <div className="text-sm font-semibold  col-start-2 md:col-start-3 md:col-span-3">
-            <h1 className="text-sm font-semibold">Price:{regular_price}$</h1>
+            <h1 className="text-sm font-semibold">Price:{price}$</h1>
             <p className="text-xs line-clamp-3 md:line-clamp-6">{description}</p>
              <div className="my-1 space-y-2">
 
             <button className="bg-gray-900 text-gray-200 rounded-lg p-[1px]" onClick={addItemToBasket}>Add to Basket </button>
-            <button className="bg-gray-900 text-gray-200 rounded-lg p-[1px]">Remove Item</button>
+            <button className="bg-gray-900 text-gray-200 rounded-lg p-[1px]" onClick={removeItemFromBasket}>Remove Item</button>
              </div>
+             <button className="text-6xl" onClick={()=>setCounter(counter-1)}>-{counter}</button>
+             <button className="text-6xl" onClick={()=>setCounter(counter+1)}>+</button>
             </div>
             </div>
         </div>

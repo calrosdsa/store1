@@ -2,8 +2,12 @@ import Head from 'next/head'
 import Header from '../components/Header'
 import ProductsFeed from '../components/ProductsFeed'
 import { getSession } from 'next-auth/client';
-
+import { useAuth } from '../auth'
+import Link from "next/link"
+import Sidebar from '../components/Sidebar';
 export default function Home({posts, categories}) {
+  const{user}=useAuth();
+  
   return (
     <div className="relative">
       <Head>
@@ -12,8 +16,17 @@ export default function Home({posts, categories}) {
       </Head>
 
       <Header data={categories} posts={posts}/>
-    <ProductsFeed posts={posts}/>  
-      
+
+      <Sidebar/>
+
+    <ProductsFeed  posts={posts}/>  
+    <div>
+
+    {`User ID:${user ? user.uid : 'No user signed in'}`}
+    <button className="p-3 text-lg bg-gray-400" disabled={!user} ><Link href="/authenticated">
+    Go to the authenticate route
+    </Link></button>
+  </div>
     
     </div>
   )

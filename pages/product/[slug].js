@@ -10,9 +10,8 @@ if(router.isFallback){
 }
     return(
 
-<div>
+<div className="relative"> 
     <Header data={categories} />
-
     <ProductFeed2  post={post}/>
     
     <h1 className="mt-6 font-bold">Productos Relacionados</h1>

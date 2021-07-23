@@ -6,6 +6,7 @@ import {selectItems,selectTotal} from '../slice/basketSlice'
 import Header from '../components/Header'
   import axios from "axios";
 import {loadStripe} from "@stripe/stripe-js"
+import Sidebar from '../components/Sidebar'
 const stripePromise=loadStripe(process.env.stripe_public_key)
 function Checkout({categories}) {
     const items=useSelector(selectItems)
@@ -28,11 +29,11 @@ function Checkout({categories}) {
          alert(result.error.message)
       }
      }
-    return (
-        <div>
-
+    return ( 
+        <div className="relative">
                 <Header data={categories}/>
-        <main className="lg:grid lg:grid-cols-6">
+        <main className="lg:grid lg:grid-cols-6 mt-32">
+                <Sidebar/>
           <img src="https://links.papareact.com/ikj" 
           className="h-28 px-1 lg:col-span-4 xl:ml-20 sm:px-6 w-[900px] py-2 sm:h-[160px] " alt="" />
         <div className="ml-2 lg:ml-16  m-5 lg:col-span-2 lg:col-start-5  ">
@@ -41,7 +42,6 @@ function Checkout({categories}) {
                 Subtotal({items.length}items:)
               <span className="font-bold ml-1">${total}</span>
               </h2>
-              <h1>{session?`Hello ${session.user.name}`:`Signin`}</h1>
               </div>
               <button 
               role="link"
@@ -58,12 +58,12 @@ function Checkout({categories}) {
                   {items.length===0 ?`Your Basket is empty`:`Shopping Basket`}</h1>
                   {items.map((item,i)=>(
                       <CheckoutProduct
-                      key={i}
+                      key={item.id}
                       slug={item.slug}
                       id={item.id}
                       image={item.image}  
                       title={item.title}
-                      regular_price={item.regular_price}
+                      price={item.price}
                       description={item.description}
                       />
                       ))}

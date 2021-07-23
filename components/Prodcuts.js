@@ -3,20 +3,22 @@ import {useRouter} from 'next/router'
 import {useDispatch} from 'react-redux'
 import {addToBasket} from '../slice/basketSlice'
 import {motion,AnimatePresence,AnimateSharedLayout} from 'framer-motion'
-import Image from 'next/image'
+
 
 function Prodcuts({slug,id, title,image,description,specifications,regular_price}) {
+  const price=parseFloat(`${regular_price}`, 10)
   const router=useRouter();
-  const [selectedImage,setSelectedImage]=useState()
+  const [selectedImage,setSelectedImage]=useState(null)
   const dispatch=useDispatch();
+
   const addItemToBasket=()=>{
-    const product={slug,id, title,image,description,specifications,regular_price}
+    const product={slug,id, title,image,description,specifications,price}
     dispatch(addToBasket(product))
   }
-  
+
 useEffect(()=>{
-  setTimeout(()=>setSelectedImage([]),2000);
-},[selectedImage])
+  setTimeout(()=>setSelectedImage([]),200000);
+},[null])
   return (
     <div>
 
@@ -29,8 +31,6 @@ useEffect(()=>{
             <motion.img
             key={id}
           src={image}
-          height={270}
-          width={270}
           className="cursor-pointer w-[110px] h-[110px] sm:w-[135px] sm:h-[135px] lg:w-[170px] lg:h-[170px] 2xl:w-[270px] 2xl:h-[270px] object-contain"
           
           />
@@ -48,21 +48,17 @@ useEffect(()=>{
 
         <AnimatePresence>
             <motion.div
-            layoutId={selectedImage}
-            animate={{ x: 0, y: 25, opacity: 1 }}
-            transition={{
               
-              y: { type:"spring", stiffness: 100 },
-              duration:2  
-              }}
+              initial={{ y: -300, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -300, opacity: 0 }}
           
-           className="fixed top-16 right-5  lg:h-20 lg:w-20">
+           className="fixed  top-10 right-1 md:top-16 md:right-5  lg:h-20 lg:w-[200px]">
             <motion.img
-            initial={{ opacity: 0,}}
-            animate={{ opacity: 0.8 }}
-            exit={{ opacity: 0 }}
-            
-            className="w-10 object-contain md:w-14 lg:w-20 2xl:w-28 text-gray-300" layoutId={image}  src={selectedImage} 
+              initial={{ y: -300, opacity: 1 }}
+              animate={{ y: 0, opacity: 0 }}
+              exit={{ y: -300, opacity: 1 }}
+            className="w-[70px] object-contain md:w-[150px] 2xl:w-[200px] text-gray-300"   src={selectedImage} 
           />
           
             </motion.div>

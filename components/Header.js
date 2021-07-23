@@ -6,6 +6,7 @@ import {useSelector} from "react-redux"
 import {selectItems} from "../slice/basketSlice"
 import {useSession,signIn} from 'next-auth/client'
 function Header({data,posts}) {
+   
     const [session]=useSession();
     const items=useSelector(selectItems)
     const [keyword,setKeyword]=useState([]);
@@ -25,10 +26,10 @@ function Header({data,posts}) {
         <div className="fixed top-0 right-0 left-0 ">
             <div  className="relative  grid grid-rows-3  grid-cols-3 md:grid-rows-2 md:grid-cols-5  bg-gray-900 md:p-1">
                 <div  className="row-start-1 flex justify-between " >
-            <h1  className="flex text-xl text-gray-300 hover:text-gray-50 ml-2 font-bold italic sm:text-2xl xl:text-4xl">
-                <MenuAlt1Icon className="h-7 mr-4 text-gray-400 hover:text-white"/>
+            
+            <h1  className="ml-12 lg:ml-20 flex text-xl text-gray-300 hover:text-gray-50  font-bold italic sm:text-2xl xl:text-4xl">
                 Ashop
-                </h1>
+        </h1>
                 </div>
                 <div className="relative flex m-1 space-x-3 col-start-3 justify-end md:col-start-5">
                 <ShoppingCartIcon onClick={()=>router.push('../checkout/')} className="h-7 text-gray-400  hover:text-white  "/>
@@ -36,7 +37,7 @@ function Header({data,posts}) {
                 {items ==0?<span className="absolute bg-gray-900 text-gray-100 right-8 -top-1"></span>:
                 <span className="absolute bg-gray-900 text-gray-100 right-8 -top-1">{items.length}</span>
                 
-                }
+            }
                 </div>
             <div className="row-start-2  relative md:row-start-1 md:col-start-2 col-span-3 ">
             <div className="relative ">
@@ -58,7 +59,7 @@ function Header({data,posts}) {
                     
             </div>
               </div>
-               <Menu as="div" className="row-start-3 md:row-start-2 ">
+               <Menu as="div" className="row-start-3 md:row-start-2 col-start-3 md:col-start-5  ">
             {({open})=>(
                 <Fragment>
 
@@ -71,12 +72,12 @@ function Header({data,posts}) {
                     </div>
                      </Menu.Button>
              
-                   <Transition show={open}
-                    enter="transition ease-out duration-200"
-                    enterFrom="transform opacity-0 scale-y-0"
-                    leave="transition ease-in duration-200"
-                    leaveFrom="transform opacity-100 scale-100"
-                    leaveTo="transform opacity-0 scale-y-0"
+                    <Transition show={open}
+                        enter="transition ease-out duration-200"
+                        enterFrom="transform opacity-0 scale-y-0"
+                        leave="transition ease-in duration-200"
+                        leaveFrom="transform opacity-100 scale-100"
+                        leaveTo="transform opacity-0 scale-y-0"
                                     
                     
                    >
@@ -89,7 +90,7 @@ function Header({data,posts}) {
                              
                              <Menu.Item >
                      {({ active, disabled})=>(
-                         <div className={`${active ? "bg-indigo-500 text-white":"text-gray-700"}`}
+                         <div className={`w-[200px] ${active ? "bg-indigo-500 text-white":"text-gray-700"}`}
                          key={category.name} onClick={()=>router.push(`../category/${encodeURIComponent(category.slug)}`)}
                          >
                     <a  className="block  mx-1  text-md " >{category.name}</a>
