@@ -95,7 +95,7 @@ import { getProviders, signIn, getSession } from 'next-auth/client'
             Location:"/",
         });
         res.end()
-           return;
+        return;
     }
     
   return {

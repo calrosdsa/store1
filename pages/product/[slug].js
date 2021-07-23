@@ -11,6 +11,8 @@ if(router.isFallback){
     return(
 
 <div className="relative"> 
+<img className="col-span-full h-[160px] md:h-[200px] lg:h-[300px] mt-24 my-2 min-w-full place-items-center" src="https://links.papareact.com/dyz" alt="" />
+
     <Header data={categories} />
     <ProductFeed2  post={post}/>
     

@@ -4,7 +4,7 @@ import Producto from './Producto'
 function ProductFeed2({post}) {
 
     return (
-        <div className="mt-32">
+        <div className="mt-16">
            <Producto
            title={post.title}
            image={post.image}

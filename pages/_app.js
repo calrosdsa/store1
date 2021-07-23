@@ -5,7 +5,7 @@ import {store} from '../app/store'
 import {AuthProvider} from '../auth'
 function MyApp({ Component, pageProps }) {
   return(
-    <AuthProvider>
+    <AuthProvider session={pageProps.session}>
     <AuthProviderr session={pageProps.session}> 
     <Provider store={store}>
     <Component {...pageProps} />

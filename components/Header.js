@@ -4,7 +4,8 @@ import {Menu,Transition,Listbox} from '@headlessui/react'
 import {ArrowDownIcon,MenuAlt1Icon,SearchIcon,ShoppingCartIcon,XIcon,UserIcon} from "@heroicons/react/solid"
 import {useSelector} from "react-redux"
 import {selectItems} from "../slice/basketSlice"
-import {useSession,signIn} from 'next-auth/client'
+import {useSession,signIn,signOut} from 'next-auth/client'
+import Sidebar from './Sidebar'
 function Header({data,posts}) {
    
     const [session]=useSession();
@@ -23,17 +24,23 @@ function Header({data,posts}) {
     }
     }
     return (
+        <header className="relative">
+
         <div className="fixed top-0 right-0 left-0 ">
+
             <div  className="relative  grid grid-rows-3  grid-cols-3 md:grid-rows-2 md:grid-cols-5  bg-gray-900 md:p-1">
-                <div  className="row-start-1 flex justify-between " >
+            <div className="col-start-1 row-start-1 md:row-start-2 m-1 ">
+            <Sidebar/>
+            </div>
+                <div  className="row-start-1 col-start-1 flex justify-between " >
             
-            <h1  className="ml-12 lg:ml-20 flex text-xl text-gray-300 hover:text-gray-50  font-bold italic sm:text-2xl xl:text-4xl">
+            <h1  className="ml-12 md:ml-2 lg:ml-20 flex text-xl text-gray-300 hover:text-gray-50  font-bold italic sm:text-2xl xl:text-4xl">
                 Ashop
         </h1>
                 </div>
-                <div className="relative flex m-1 space-x-3 col-start-3 justify-end md:col-start-5">
-                <ShoppingCartIcon onClick={()=>router.push('../checkout/')} className="h-7 text-gray-400  hover:text-white  "/>
-                <UserIcon onClick={signIn} className="h-7 mr-4 text-gray-400 hover:text-white"/>
+                <div className="relative flex m-1 space-x-3 md:space-x-6 xl:space-x-12 md:mr-5 col-start-3 justify-end md:col-start-5">
+                <ShoppingCartIcon onClick={()=>router.push('../checkout/')} className="h-7 md:h-8 lg:h-9 xl:h-10 text-gray-400  hover:text-white  "/>
+                <UserIcon onClick={signIn} className="h-7 md:h-8 lg:h-9 xl:h-10 mr-4 text-gray-400 hover:text-white"/>
                 {items ==0?<span className="absolute bg-gray-900 text-gray-100 right-8 -top-1"></span>:
                 <span className="absolute bg-gray-900 text-gray-100 right-8 -top-1">{items.length}</span>
                 
@@ -59,7 +66,7 @@ function Header({data,posts}) {
                     
             </div>
               </div>
-               <Menu as="div" className="row-start-3 md:row-start-2 col-start-3 md:col-start-5  ">
+               <Menu as="div" className="row-start-3 md:row-start-2  col-start-1 lg:ml-20 md:ml-10  ">
             {({open})=>(
                 <Fragment>
 
@@ -78,9 +85,9 @@ function Header({data,posts}) {
                         leave="transition ease-in duration-200"
                         leaveFrom="transform opacity-100 scale-100"
                         leaveTo="transform opacity-0 scale-y-0"
-                                    
-                    
-                   >
+                        
+                        
+                        >
                     
                  <Menu.Items  className=" absolute bg-gray-50 focus:outline-none" static>
 
@@ -93,7 +100,7 @@ function Header({data,posts}) {
                          <div className={`w-[200px] ${active ? "bg-indigo-500 text-white":"text-gray-700"}`}
                          key={category.name} onClick={()=>router.push(`../category/${encodeURIComponent(category.slug)}`)}
                          >
-                    <a  className="block  mx-1  text-md " >{category.name}</a>
+                    <a  className="block  mx-1  text-xl lg:text-2xl font-semibold italic" >{category.name}</a>
                     </div>
                     )}
                     </Menu.Item>
@@ -106,8 +113,18 @@ function Header({data,posts}) {
                     </Fragment>
                     )}
                 </Menu>
+                <div className="cursor-pointer row-start-3 md:row-start-2  flex space-x-7  text-[15px]  text-gray-200 mt-[2px] md:ml-14 
+                md:text-lg xl:text-xl xl:col-start-2 xl:space-x-36 xl:tracking-widest 2xl:-ml-10 xl:mt-1 font-semibold ">
+                <div     
+                 className="whitespace-nowrap  lg:hover:translate-y-3  hover:text-white hover:transition-transform lg:-ml-2">
+                     
+                     {session?<h1 onClick={signOut}>Sign Out</h1>:<h1 onClick={signIn}>Sign In</h1>}</div>
+                <h1 className=" lg:hover:translate-y-3  hover:text-white hover:transition-transform" >Trading</h1>
+                <h1 className=" lg:hover:translate-y-3  hover:text-white hover:transition-transform ">Ofertas</h1>
                 </div>
                 </div>
+                </div>
+                    </header>
     )
 }
 

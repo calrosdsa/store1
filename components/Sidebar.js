@@ -8,7 +8,7 @@ function Sidebar() {
   const [session]=useSession();
   const router=useRouter();
     return (
-      <div className=" focus:outline-none absolute -top-28 -mt-3  text-gray-300  lg:-mt-2  left-3">
+      <div className=" focus:outline-none    text-gray-300    left-3">
 
         <Menu as='object'>
             {({open})=>(
@@ -16,7 +16,7 @@ function Sidebar() {
 
           <Menu.Button>
 
-          <MenuAlt1Icon className="h-[26px] lg:h-10" />
+          <MenuAlt1Icon className="h-[26px] lg:h-8 xl:h-9 2xl:h-10 lg:-mt-1" />
           </Menu.Button>
           <Transition show={open}
                     enter="transition ease-out duration-200"
@@ -27,14 +27,16 @@ function Sidebar() {
                     leaveTo="transform opacity-0 scale-x-0"
                     
 >
-            <Menu.Items className="bg-gray-900 absolute mt-1 -left-4 w-[200px] md:w-[300px] xl:w-[400px] focus:outline-none ">
+            <Menu.Items className="bg-gray-900 absolute mt-10  md:mt-1 -left-4 w-[200px] md:w-[300px] xl:w-[400px] focus:outline-none ">
 
             <Menu.Item className="ml-2">
               {({active})=>(
                 <div className={`${active ? "bg-gray-600 text-white":"text-gray-700"}`} >
-                  {!session?
-        <Icons Icon={UserIcon} title="Sign in"/>:<Icons src={session.user.image} title={session.user.name}/>
-      }
+                {!session?
+                  <Icons Icon={UserIcon} title="Sign in"/>
+                  :
+                  <Icons src={session.user.image} title={session.user.name}/>
+                }
                 </div>
                 )}
               </Menu.Item>

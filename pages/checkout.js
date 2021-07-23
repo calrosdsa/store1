@@ -4,14 +4,15 @@ import {useSelector} from 'react-redux'
 import {useSession} from 'next-auth/client'
 import {selectItems,selectTotal} from '../slice/basketSlice'
 import Header from '../components/Header'
+import { useAuth } from '../auth'
   import axios from "axios";
 import {loadStripe} from "@stripe/stripe-js"
-import Sidebar from '../components/Sidebar'
 const stripePromise=loadStripe(process.env.stripe_public_key)
 function Checkout({categories}) {
     const items=useSelector(selectItems)
     const total=useSelector(selectTotal)
    const [session ] =useSession();
+  const{user}=useAuth();
     
 
     const createCheckoutSession=async()=>{
@@ -20,8 +21,9 @@ function Checkout({categories}) {
       const checkoutSession=await axios.post('/api/create-checkout-session',
       {
          items:items,
-         email:session.user.email
-      });
+         email:user.email,
+      }
+      );
       const result=await stripe.redirectToCheckout({
          sessionId:checkoutSession.data.id
       })
@@ -33,7 +35,6 @@ function Checkout({categories}) {
         <div className="relative">
                 <Header data={categories}/>
         <main className="lg:grid lg:grid-cols-6 mt-32">
-                <Sidebar/>
           <img src="https://links.papareact.com/ikj" 
           className="h-28 px-1 lg:col-span-4 xl:ml-20 sm:px-6 w-[900px] py-2 sm:h-[160px] " alt="" />
         <div className="ml-2 lg:ml-16  m-5 lg:col-span-2 lg:col-start-5  ">
@@ -46,9 +47,9 @@ function Checkout({categories}) {
               <button 
               role="link"
               onClick={createCheckoutSession}
-              disabled={!session}
+              disabled={!user && !session}
               className={`bg-gray-400 h-6 lg:ml-10 text-black text-sm font-semibold ml-2 rounded-md
-               ${!session&& "bg-gray-300 "}`}>{!session? 'Sign in to Checkout':'Proced to checkout'}</button>
+               ${!session&& "bg-gray-300 "}`}>{ !user && !session? 'Sign in to Checkout':'Proced to checkout'}</button>
        </div>
 
 
