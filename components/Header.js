@@ -5,15 +5,20 @@ import {ArrowDownIcon,MenuAlt1Icon,SearchIcon,ShoppingCartIcon,XIcon,UserIcon} f
 import {useSelector} from "react-redux"
 import {selectItems} from "../slice/basketSlice"
 import {useSession,signIn,signOut} from 'next-auth/client'
+import { useAuth } from '../auth' 
 import Sidebar from './Sidebar'
+import firebase from 'firebase/app'
+
 function Header({data,posts}) {
-   
+   const{user}=useAuth()
     const [session]=useSession();
     const items=useSelector(selectItems)
     const [keyword,setKeyword]=useState([]);
+    const [wordEnter, setWordEnter]=useState('');
     const router=useRouter();
     const handleFilter=(event)=>{
     const searchWord=event.target.value
+    setWordEnter(searchWord)
     const newFilter=posts.filter((post)=>{
         return post.title.toLowerCase().includes(searchWord.toLowerCase())
     })
@@ -22,6 +27,10 @@ function Header({data,posts}) {
     }else{
         setKeyword(newFilter)
     }
+    }
+    const cleanInput=()=>{
+        setKeyword([])
+        setWordEnter('')
     }
     return (
         <header className="relative">
@@ -42,24 +51,25 @@ function Header({data,posts}) {
                 <ShoppingCartIcon onClick={()=>router.push('../checkout/')} className="h-7 md:h-8 lg:h-9 xl:h-10 text-gray-400  hover:text-white  "/>
                 <UserIcon onClick={signIn} className="h-7 md:h-8 lg:h-9 xl:h-10 mr-4 text-gray-400 hover:text-white"/>
                 {items ==0?<span className="absolute bg-gray-900 text-gray-100 right-8 -top-1"></span>:
-                <span className="absolute bg-gray-900 text-gray-100 right-8 -top-1">{items.length}</span>
+                <span className="absolute  text-gray-900 rounded-full pl-1  text-xs md:text-base 2xl:text-lg  font-bold 2xl:right-16 2xl:pl-[10px] w-[30px]  right-20  bg-gray-200 -top-1">{items.length}</span>
                 
             }
                 </div>
             <div className="row-start-2  relative md:row-start-1 md:col-start-2 col-span-3 ">
             <div className="relative ">
 
-                <input type="text" className="row-start-2 h-7 xl:h-9 mt-1 focus:outline-none min-w-full col-span-3 "  onChange={handleFilter} />
+                <input value={wordEnter} type="text" className="row-start-2 h-7 xl:h-9 mt-1 focus:outline-none min-w-full col-span-3 "  onChange={handleFilter} />
             {keyword ==0? 
-                <SearchIcon className="h-6  absolute right-1 top-2 "/>:<XIcon className="h-6 absolute right-1 top-2"/>
+                <SearchIcon className="h-6  absolute right-1 top-2 "/>:<XIcon onClick={cleanInput}  className="h-6 absolute right-1 top-2"/>
                 
             }
             </div>
                 
                 <div className="absolute  bg-white min-w-full ">
-                {keyword.slice(0,5).map((post) => (
-                    <div key={post.id} className="row-start-2 " onClick={()=>router.push(`../product/${encodeURIComponent(post.slug)}`)}>
-                    <h1 className="row-start-2">{post.title}</h1>
+                {keyword.slice(0,4).map((post) => (
+                    <div key={post.id} className="relative mt-2 row-start-2  grid grid-cols-2 items-center" onClick={()=>router.push(`../product/${encodeURIComponent(post.slug)}`)}>
+                    <h1 className="absolute col-start-2 mr-4 sm:mr-10">{post.title}</h1>
+                    <img className="ml-4 sm:ml-10 h-16 col-start-1 w-20 lg:h-24 lg:w-28" src={post.image} alt="" />
                 </div>
               ))}
 
@@ -113,14 +123,22 @@ function Header({data,posts}) {
                     </Fragment>
                     )}
                 </Menu>
-                <div className="cursor-pointer row-start-3 md:row-start-2  flex space-x-7  text-[15px]  text-gray-200 mt-[2px] md:ml-14 
+                <div className=" row-start-3 md:row-start-2  flex space-x-7  text-[15px]  text-gray-200 mt-[2px] md:ml-14 
                 md:text-lg xl:text-xl xl:col-start-2 xl:space-x-36 xl:tracking-widest 2xl:-ml-10 xl:mt-1 font-semibold ">
                 <div     
                  className="whitespace-nowrap  lg:hover:translate-y-3  hover:text-white hover:transition-transform lg:-ml-2">
                      
-                     {session?<h1 onClick={signOut}>Sign Out</h1>:<h1 onClick={signIn}>Sign In</h1>}</div>
-                <h1 className=" lg:hover:translate-y-3  hover:text-white hover:transition-transform" >Trading</h1>
-                <h1 className=" lg:hover:translate-y-3  hover:text-white hover:transition-transform ">Ofertas</h1>
+                    
+                     {user||session?<h1 className="cursor-pointer" onClick={async()=>{
+                    await firebase.auth().signOut()}}>
+                        <p onClick={signOut}>
+                        Sign Out
+                            </p>
+                    </h1>:<h1 onClick={signIn}>
+                             Sign In
+                        </h1>}</div>
+                <h1 className="cursor-pointer lg:hover:translate-y-3  hover:text-white hover:transition-transform" >Trading</h1>
+                <h1 className="cursor-pointer lg:hover:translate-y-3  hover:text-white hover:transition-transform ">Ofertas</h1>
                 </div>
                 </div>
                 </div>

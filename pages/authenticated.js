@@ -12,13 +12,12 @@ function Authenticated({session}) {
             <h1>Auhthenticated</h1>
             <div>
                 <h1>{session}</h1>
-                <h1>You do anithing now you are authenticated</h1>
             </div>
             <div>
                 <button className="bg-gray-300 h-20 w-44" onClick={async()=>{
                     await firebase.auth().signOut();
-                    window.location.href="/"
-                }}>Sign out</button>
+                    window.location.href="/"}}
+                >Sign out</button>
             </div>
         </div>
     );

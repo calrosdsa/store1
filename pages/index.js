@@ -4,8 +4,6 @@ import ProductsFeed from '../components/ProductsFeed'
 import { getSession } from 'next-auth/client';
 import { useAuth } from '../auth'
 import Link from "next/link"
-import Sidebar from '../components/Sidebar';
-import Slideshow from '../components/Slideshow';
 import ProductsFeed3 from '../components/ProductFeed3';
 export default function Home({posts, categories}) {
   const{user}=useAuth();
@@ -17,7 +15,7 @@ export default function Home({posts, categories}) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Header data={categories} posts={posts}/>
+      <Header  data={categories} posts={posts}/>
 <img className="min-w-full h-[200px] md:h-[300px] lg:h-[400px] xl:h-[500px] mt-[100px]" src="https://c0.wallpaperflare.com/preview/447/552/983/ecommerce-online-shop-euro.jpg" alt="" />
 
     <ProductsFeed3  posts={posts}/> 
@@ -39,11 +37,12 @@ export default function Home({posts, categories}) {
   )
 }
 
-export async function getStaticProps({params}){
+export async function getStaticProps(){
   const res = await fetch("https://djangoapi3.herokuapp.com/api/");
   const posts= await res.json();
   const ress=await fetch("https://djangoapi3.herokuapp.com/api/category/")
   const categories=await ress.json();
+  
  ;
   return{
     props:{
