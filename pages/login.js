@@ -11,22 +11,22 @@ import { getProviders, signIn, getSession } from 'next-auth/client'
      const [email,setEmail]=useState('');
      const [password,setPassword]=useState('');
   return(
-      <div className="min-h-screen bg-red-300 flex justify-center ">
-          <div className="p-1 flex-1">
-        <div  className="w-60 p-2 md:w-80 bg-white rounded-3xl mx-auto overflow-hidden shadow-xl relative ">
-          <h1 className="absolute bg-red-600 min-w-full text-gray-200 mt-2 text-xl italic font-bold">Welcome </h1>
+      <div className="min-h-screen bg-gray-900 flex justify-center ">
+          <div className="p-1  flex-1">
+        <div  className="w-[300px] p-2 py-10 md:w-80 bg-white rounded-xl mx-auto overflow-hidden shadow-xl relative ">
+          <h1 className="absolute bg-gray-600 min-w-full text-gray-200 mt-2 text-xl italic font-bold">Sign In </h1>
             <form className="mt-16" action="" method="POST">
 
             <div className="relative">
 
-            <input className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-red-600" placeholder="john@doe.com" id="email" name="email" type="text" onChange={(e)=>setEmail(e.target.value)}
+            <input className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-gray-600" placeholder="john@doe.com" id="email" name="email" type="text" onChange={(e)=>setEmail(e.target.value)}
             id="email adress"
             value={email}
             />
                 <label  htmlFor="email" className="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Emmail Adress</label>
         </div>
         <div className="relative mt-5">
-            <input className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-red-600" placeholder="Password"  onChange={(e)=>setPassword(e.target.value)}
+            <input className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-gray-600" placeholder="Password"  onChange={(e)=>setPassword(e.target.value)}
             id="password" type="password" name="password"
             value={password}
             />
@@ -35,9 +35,9 @@ import { getProviders, signIn, getSession } from 'next-auth/client'
             >Password</label>
         </div>
             </form>
-            <div className="mt-5 p-2 relative border-b-4 border-red-400">
+            <div className="mt-5 p-2 relative border-b-4 border-gray-400">
 
-        <button className="text-sm md:text-[17px]  bg-red-100 hover:bg-red-400 hover:text-gray-200 p-1 text-gray-400 rounded-xl font-semibold" disabled={email === "" || password===""}
+        <button className="text-sm md:text-[17px]  bg-gray-100 hover:bg-gray-400 hover:text-gray-200 p-1 text-gray-400 rounded-xl font-semibold" disabled={email === "" || password===""}
         onClick={async()=>{await firebase.auth().createUserWithEmailAndPassword  
             (email,password).then(function(){
                 window.location.href="/"
@@ -54,7 +54,7 @@ import { getProviders, signIn, getSession } from 'next-auth/client'
         }}
         >CREATE ACCOUNT</button>
 
-        <button className="text-sm md:text-[17px] bg-red-100 md:px-10 px-2 hover:bg-red-400 hover:text-gray-200 p-1 text-gray-400 rounded-xl font-semibold absolute bottom-2 right-3"  disabled={email === "" || password===""}
+        <button className="text-sm md:text-[17px] bg-gray-100 md:px-10 px-2 hover:bg-gray-400 hover:text-gray-200 p-1 text-gray-400 rounded-xl font-semibold absolute bottom-2 right-3"  disabled={email === "" || password===""}
         onClick={async()=>{await firebase.auth().signInWithEmailAndPassword  
             (email,password).then(function(){
                 window.location.href="/"

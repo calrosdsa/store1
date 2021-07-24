@@ -23,7 +23,7 @@ function Producto({title,id,description,image,regular_price,specifications,slug}
         Math.floor(Math.random()*(MAX_RATING - MIN_RATING  +1)) +MIN_RATING
     );
     return (
-        <div >
+        <div className="">
             <AnimateSharedLayout>
 
    <div key={id} className="items-center" >
@@ -31,14 +31,13 @@ function Producto({title,id,description,image,regular_price,specifications,slug}
 <div onClick={()=>router.push(`../product/${encodeURIComponent(slug)}`)} className="">
    <h1 className="text-base md:text-lg xl:text-2xl underline col-span-2 ml-16 my-2 font-bold">{title}</h1>
    <div className="grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 relative mt-3 ">
-<div className=" w-250 md:w-[250]">
+<div className=" w-250 md:w-[250] ml-2 xl:ml-10">
 
        <Image
        src={image}
        key={id}
        height={300}
        width={350}
-       layoutId={image}
        objectFit="contain"
        className="col-start-1 p-3 md:p-6 sm:ml-2 xl:ml-10"
        />
@@ -61,7 +60,7 @@ function Producto({title,id,description,image,regular_price,specifications,slug}
                 }
                
             </div>
-<p className="col-span-2 md:col-span-1  md:col-start-2 md:-mt-16  lg:-mt-20 xl:-mt-40  md:text-sm font-medium text-xs mx-2 ">{description}</p>
+<p className="col-span-2 md:col-span-1  md:col-start-2 md:-mt-16  lg:-mt-20 xl:-mt-32  md:text-sm font-medium text-xs mx-2 ">{description}</p>
 <button onClick={()=>setSelectedImage(image)}   className="bg-gray-900 absolute top-32  w-[90px] ml-3 text-gray-500 col-start-2  min-w-[20px]  md:font-bold rounded-lg">
 <h1 onClick={addItemToBasket}>Add to Cart</h1>
     {selectedImage&&(

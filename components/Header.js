@@ -7,6 +7,7 @@ import {selectItems} from "../slice/basketSlice"
 import {useSession,signIn,signOut} from 'next-auth/client'
 import { useAuth } from '../auth' 
 import Sidebar from './Sidebar'
+import Link from 'next/link'
 import firebase from 'firebase/app'
 
 function Header({data,posts}) {
@@ -43,7 +44,7 @@ function Header({data,posts}) {
             </div>
                 <div  className="row-start-1 col-start-1 flex justify-between " >
             
-            <h1  className="ml-12 md:ml-2 lg:ml-20 flex text-xl text-gray-300 hover:text-gray-50  font-bold italic sm:text-2xl xl:text-4xl">
+            <h1 onClick={()=>router.push("/")} className="ml-12 md:ml-2 lg:ml-20 flex text-xl text-gray-300 hover:text-gray-50  font-bold italic sm:text-2xl xl:text-4xl">
                 Ashop
         </h1>
                 </div>
@@ -51,8 +52,9 @@ function Header({data,posts}) {
                 <ShoppingCartIcon onClick={()=>router.push('../checkout/')} className="h-7 md:h-8 lg:h-9 xl:h-10 text-gray-400  hover:text-white  "/>
                 <UserIcon onClick={signIn} className="h-7 md:h-8 lg:h-9 xl:h-10 mr-4 text-gray-400 hover:text-white"/>
                 {items ==0?<span className="absolute bg-gray-900 text-gray-100 right-8 -top-1"></span>:
-                <span className="absolute  text-gray-900 rounded-full pl-1  text-xs md:text-base 2xl:text-lg  font-bold 2xl:right-16 2xl:pl-[10px] w-[30px]  right-20  bg-gray-200 -top-1">{items.length}</span>
-                
+                <span className="absolute  text-gray-900 rounded-full pl-1  text-sm md:text-base 2xl:text-xl 2xl:pl-2 
+                font-extrabold  2xl:w-[27px] w-[20px]  right-6 md:right-12  lg:right-20  bg-gray-200 -top-1">{items.length}</span>
+            
             }
                 </div>
             <div className="row-start-2  relative md:row-start-1 md:col-start-2 col-span-3 ">
@@ -65,12 +67,16 @@ function Header({data,posts}) {
             }
             </div>
                 
-                <div className="absolute  bg-white min-w-full ">
+                <div className="absolute min-w-full xl:overflow-hidden  overflow-scroll ">
                 {keyword.slice(0,4).map((post) => (
-                    <div key={post.id} className="relative mt-2 row-start-2  grid grid-cols-2 items-center" onClick={()=>router.push(`../product/${encodeURIComponent(post.slug)}`)}>
-                    <h1 className="absolute col-start-2 mr-4 sm:mr-10">{post.title}</h1>
-                    <img className="ml-4 sm:ml-10 h-16 col-start-1 w-20 lg:h-24 lg:w-28" src={post.image} alt="" />
-                </div>
+                    <div key={post.id} className=" pt-2 xl:grid-cols-3 bg-white grid grid-cols-2 mx-auto items-center" onClick={()=>router.push(`../product/${encodeURIComponent(post.slug)}`)}>
+                    <img className="w-[80px] h-[80px] ml-4 col-start-1 md:ml-10 sm:ml-16 " src={post.image} alt="" />
+                    <div className="col-start-2 -ml-5 xl:-ml-10">
+                    <h1 className="text-sm xl:text-base font-bold ">{post.title}</h1>
+                    <h1 className="text-sm xl:text-base font -semibold">${post.regular_price}</h1>
+                    </div>
+                    </div>
+                    
               ))}
 
                     
@@ -124,7 +130,7 @@ function Header({data,posts}) {
                     )}
                 </Menu>
                 <div className=" row-start-3 md:row-start-2  flex space-x-7  text-[15px]  text-gray-200 mt-[2px] md:ml-14 
-                md:text-lg xl:text-xl xl:col-start-2 xl:space-x-36 xl:tracking-widest 2xl:-ml-10 xl:mt-1 font-semibold ">
+                md:text-lg 2xl:text-xl xl:col-start-2 xl:space-x-36 xl:tracking-widest 2xl:-ml-10 xl:mt-1 font-semibold ">
                 <div     
                  className="whitespace-nowrap  lg:hover:translate-y-3  hover:text-white hover:transition-transform lg:-ml-2">
                      
@@ -137,8 +143,11 @@ function Header({data,posts}) {
                     </h1>:<h1 onClick={signIn}>
                              Sign In
                         </h1>}</div>
-                <h1 className="cursor-pointer lg:hover:translate-y-3  hover:text-white hover:transition-transform" >Trading</h1>
-                <h1 className="cursor-pointer lg:hover:translate-y-3  hover:text-white hover:transition-transform ">Ofertas</h1>
+                        <Link href="/trading">
+                     <a className="cursor-pointer lg:hover:translate-y-3  hover:text-white hover:transition-transform" >Trading</a>
+                        </Link>
+                <h1 onClick={()=>router.push("/ofertas")}
+                className="cursor-pointer lg:hover:translate-y-3  hover:text-white hover:transition-transform ">Ofertas</h1>
                 </div>
                 </div>
                 </div>

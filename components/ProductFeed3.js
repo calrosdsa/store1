@@ -4,7 +4,7 @@ function ProductsFeed3({posts}) {
     
     return (
         <div className="sm:grid-flow-row-dense mx-auto  my-16 m-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-            {posts.slice(0,5).map(({title,slug,id,image,description,specifications,regular_price})=>(
+            {posts.sort(() => Math.random() - Math.random()).slice(0,5).map(({title,slug,id,image,description,specifications,regular_price})=>(
                 <Prodcuts
                 key={id}
                 id={id}

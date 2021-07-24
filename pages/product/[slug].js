@@ -1,4 +1,5 @@
 import {useRouter} from "next/router"
+import Footer from "../../components/Footer";
 import Header from "../../components/Header"
 import ProductFeed2 from "../../components/ProductFeed2";
 import ProductsFeed from "../../components/ProductsFeed";
@@ -22,7 +23,7 @@ if(router.isFallback){
     <ProductsFeed posts={posts}/>
     <h1 className="font-bold">Productos mas Vendidos</h1>
     <ProductsFeed posts={posts}/>
-    
+    <Footer/>
 
 </div>
     )

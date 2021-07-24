@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import ProductsFeed from "../../components/ProductsFeed";
 import Header from "../../components/Header"
-import Sidebar from "../../components/Sidebar";
+import Footer from "../../components/Footer";
 export default function Category({posts,categories}){
     
 const router=useRouter();
@@ -11,9 +11,8 @@ if(router.isFallback){
     return(
         <div className="mt-32 relative">
             <Header data={categories}/> 
-            <Sidebar/>  
          <ProductsFeed posts={posts}/>
-        
+        <Footer/>
         </div>
     )
 }

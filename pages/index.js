@@ -5,11 +5,12 @@ import { getSession } from 'next-auth/client';
 import { useAuth } from '../auth'
 import Link from "next/link"
 import ProductsFeed3 from '../components/ProductFeed3';
+import Footer from '../components/Footer';
 export default function Home({posts, categories}) {
   const{user}=useAuth();
   
   return (
-    <div className="relative">
+    <div className="relative ">
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
@@ -31,6 +32,7 @@ export default function Home({posts, categories}) {
     <button className="p-3 text-lg bg-gray-400" disabled={!user} ><Link href="/authenticated">
     Go to the authenticate route
     </Link></button>
+    <Footer/> 
   </div>
     
     </div>

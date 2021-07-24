@@ -3,7 +3,6 @@ import {addToBasket,removeFromBasket} from '../slice/basketSlice'
 import { useDispatch } from "react-redux"
 import {useRouter} from 'next/router'
 function CheckoutProduct({title,slug,price,image,description,id}) {
-    const [counter, setCounter] = useState(0)
     const router=useRouter();
     const dispatch=useDispatch();
     const addItemToBasket=()=>{
@@ -36,9 +35,7 @@ function CheckoutProduct({title,slug,price,image,description,id}) {
             <button className="bg-gray-900 text-gray-200 rounded-lg p-[1px]" onClick={addItemToBasket}>Add to Basket </button>
             <button className="bg-gray-900 text-gray-200 rounded-lg p-[1px]" onClick={removeItemFromBasket}>Remove Item</button>
              </div>
-             <button className="text-6xl" onClick={()=>setCounter(counter-1)}>-{counter}</button>
-             <button className="text-6xl" onClick={()=>setCounter(counter+1)}>+</button>
-            </div>
+             </div>
             </div>
         </div>
     )

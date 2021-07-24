@@ -7,6 +7,7 @@ import Header from '../components/Header'
 import { useAuth } from '../auth'
   import axios from "axios";
 import {loadStripe} from "@stripe/stripe-js"
+import Footer from '../components/Footer'
 const stripePromise=loadStripe(process.env.stripe_public_key)
 function Checkout({categories}) {
     const items=useSelector(selectItems)
@@ -48,7 +49,7 @@ function Checkout({categories}) {
               role="link"
               onClick={createCheckoutSession}
               disabled={!user && !session}
-              className={`bg-gray-400 h-6 lg:ml-10 text-black text-sm font-semibold ml-2 rounded-md
+              className={`bg-gray-400 mt-2 h-8 p-1 lg:ml-10 text-black text-base font-semibold ml-2 rounded-md
                ${!session&& "bg-gray-300 "}`}>{ !user && !session? 'Sign in to Checkout':'Proced to checkout'}</button>
        </div>
 
@@ -71,7 +72,10 @@ function Checkout({categories}) {
              </div>
                 </div>
             </main>
+            <div className="mt-[600px]">
 
+<Footer/>
+            </div>
                       </div>
     
     )

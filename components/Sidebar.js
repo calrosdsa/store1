@@ -33,7 +33,7 @@ function Sidebar() {
               {({active})=>(
                 <div className={`${active ? "bg-gray-600 text-white":"text-gray-700"}`} >
                 {!session?
-                  <Icons Icon={UserIcon} title="Sign in"/>
+                  <Icons Icon={UserIcon} title="User"/>
                   :
                   <Icons src={session.user.image} title={session.user.name}/>
                 }
