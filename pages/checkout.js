@@ -35,12 +35,12 @@ function Checkout({categories}) {
     return ( 
         <div className="relative">
                 <Header data={categories}/>
-        <main className="lg:grid lg:grid-cols-6 mt-32">
           <img src="https://links.papareact.com/ikj" 
-          className="h-28 px-1 lg:col-span-4 xl:ml-20 sm:px-6 w-[900px] py-2 sm:h-[160px] " alt="" />
-        <div className="ml-2 lg:ml-16  m-5 lg:col-span-2 lg:col-start-5  ">
+          className="h-28 mt-32 px-1 lg:col-span-4 xl:ml-20 sm:px-6 w-[900px] py-2 sm:h-[160px] " alt="" />
+                <main className="lg:grid lg:grid-cols-6 lg:grid-rows-1  mt-2 ">
+        <div className="ml-2 px-1 pr-3 lg:w-[500px] xl:px- sm:px-5 md:px-20  lg:row-start-1  lg:col-span-2 lg:col-start-5  ">
               <div className="bg-gray-200   rounded-lg p-[1px] ">
-              <h2 className="border-b-4 text-base ml-2 font-semibold sm:text-base md:text-base my-5 md:ml-1 lg:ml-7  border-gray-300">
+              <h2 className="border-b-4 text-base  font-semibold sm:text-base md:text-base my-5 ml-5  border-gray-300">
                 Subtotal({items.length}items:)
               <span className="font-bold ml-1">${total}</span>
               </h2>
@@ -50,11 +50,20 @@ function Checkout({categories}) {
               onClick={createCheckoutSession}
               disabled={!user && !session}
               className={`bg-gray-400 mt-2 h-8 p-1 lg:ml-10 text-black text-base font-semibold ml-2 rounded-md
-               ${!session&& "bg-gray-300 "}`}>{ !user && !session? 'Sign in to Checkout':'Proced to checkout'}</button>
+              ${!session&& "bg-gray-300 "}`}>{ !user && !session? 'Sign in to Checkout':'Proced to checkout'}</button>
+
+              <img className="hidden lg:block col-span-2   lg:h-[100px] my-7 min-w-[400px] 2xl:min-w-[600px]  xl:h-[150px]  " 
+                      src="https://www.isidroperez.com/wp-content/uploads/2017/12/descuentos1.jpg" alt="" />
+              <img className="hidden lg:block col-span-2   lg:h-[100px] my-7 min-w-[400px] 2xl:min-w-[600px]  xl:h-[150px]  " 
+                      src="https://links.papareact.com/dyz" alt="" />
+                      <img className="hidden lg:block col-span-2   lg:h-[100px] my-7 min-w-[400px] 2xl:min-w-[600px] xl:h-[150px]  " 
+                      src="https://c0.wallpaperflare.com/preview/447/552/983/ecommerce-online-shop-euro.jpg"  alt="" />
        </div>
+            <div className=" ">
 
+                      </div>
 
-                <div className="lg:col-start-1 col-span-4 ">
+                <div className="lg:col-start-1 lg:row-start-1 col-span-4 ">
              <div className="space-y-6 p-2 ">
                 <h1 className="text-sm sm:text-base md:text-lg border-b-4 border-gray-300 font-bold italic text-gray-700 tracking-wider">
                   {items.length===0 ?`Your Basket is empty`:`Shopping Basket`}</h1>
@@ -72,7 +81,7 @@ function Checkout({categories}) {
              </div>
                 </div>
             </main>
-            <div className="mt-[600px]">
+            <div className="mt-[400px] xl:mt-[600px]">
 
 <Footer/>
             </div>

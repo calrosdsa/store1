@@ -1,7 +1,7 @@
 import React,{Fragment,useState}from 'react'
 import {useRouter} from 'next/router'
 import {Menu,Transition,Listbox} from '@headlessui/react'
-import {ArrowDownIcon,MenuAlt1Icon,SearchIcon,ShoppingCartIcon,XIcon,UserIcon} from "@heroicons/react/solid"
+import {ArrowDownIcon,HomeIcon,SearchIcon,ShoppingCartIcon,XIcon,UserIcon} from "@heroicons/react/solid"
 import {useSelector} from "react-redux"
 import {selectItems} from "../slice/basketSlice"
 import {useSession,signIn,signOut} from 'next-auth/client'
@@ -50,7 +50,7 @@ function Header({data,posts}) {
                 </div>
                 <div className="relative flex m-1 space-x-3 md:space-x-6 xl:space-x-12 md:mr-5 col-start-3 justify-end md:col-start-5">
                 <ShoppingCartIcon onClick={()=>router.push('../checkout/')} className="h-7 md:h-8 lg:h-9 xl:h-10 text-gray-400  hover:text-white  "/>
-                <UserIcon onClick={signIn} className="h-7 md:h-8 lg:h-9 xl:h-10 mr-4 text-gray-400 hover:text-white"/>
+                <HomeIcon onClick={()=>router.push("/")}  className="h-7 md:h-8 lg:h-9 xl:h-10 mr-4 text-gray-400 hover:text-white"/>
                 {items ==0?<span className="absolute bg-gray-900 text-gray-100 right-8 -top-1"></span>:
                 <span className="absolute  text-gray-900 rounded-full pl-1  text-sm md:text-base 2xl:text-xl 2xl:pl-2 
                 font-extrabold  2xl:w-[27px] w-[20px]  right-6 md:right-12  lg:right-20  bg-gray-200 -top-1">{items.length}</span>
