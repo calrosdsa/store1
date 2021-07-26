@@ -10,9 +10,7 @@ export default NextAuth({
     }),
     // ...add more providers here
   ],
-  pages:{
-    signIn:'/login'
-      },
+  //pages:{signIn:'/login'},
   
 
   // A database is optional, but required to persist accounts in a database

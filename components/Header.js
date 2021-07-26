@@ -49,8 +49,8 @@ function Header({data,posts}) {
         </h1>
                 </div>
                 <div className="relative flex m-1 space-x-3 md:space-x-6 xl:space-x-12 md:mr-5 col-start-3 justify-end md:col-start-5">
-                <ShoppingCartIcon onClick={()=>router.push('../checkout/')} className="h-7 md:h-8 lg:h-9 xl:h-10 text-gray-400  hover:text-white  "/>
-                <HomeIcon onClick={()=>router.push("/")}  className="h-7 md:h-8 lg:h-9 xl:h-10 mr-4 text-gray-400 hover:text-white"/>
+                <ShoppingCartIcon onClick={()=>router.push('../checkout/')} className="h-7 md:h-8  xl:h-9 text-gray-400  hover:text-white  "/>
+                <HomeIcon onClick={()=>router.push("/")}  className="h-7 md:h-8  xl:h-9 mr-4 text-gray-400 hover:text-white"/>
                 {items ==0?<span className="absolute bg-gray-900 text-gray-100 right-8 -top-1"></span>:
                 <span className="absolute  text-gray-900 rounded-full pl-1  text-sm md:text-base 2xl:text-xl 2xl:pl-2 
                 font-extrabold  2xl:w-[27px] w-[20px]  right-6 md:right-12  lg:right-20  bg-gray-200 -top-1">{items.length}</span>
@@ -129,10 +129,10 @@ function Header({data,posts}) {
                     </Fragment>
                     )}
                 </Menu>
-                <div className=" row-start-3 md:row-start-2  flex space-x-7  text-[15px]  text-gray-200 mt-[2px] md:ml-14 
-                md:text-lg 2xl:text-xl xl:col-start-2 xl:space-x-36 xl:tracking-widest 2xl:-ml-10 xl:mt-1 font-semibold ">
+                <div className="underline ml-2 row-start-3 md:col-span-4 overflow-x-auto md:ml-16  md:row-start-2 col-span-2  flex space-x-7  text-[15px]  text-gray-200 mt-[2px] 
+                md:text-lg 2xl:text-xl xl:col-start-2 lg:space-x-24 xl:space-x-36 xl:tracking-widest 2xl:-ml-10 xl:mt-1 font-semibold ">
                 <div     
-                 className="whitespace-nowrap  lg:hover:translate-y-3  hover:text-white hover:transition-transform lg:-ml-2">
+                 className="whitespace-nowrap   lg:hover:translate-y-3  hover:text-white hover:transition-transform ">
                      
                     
                      {user||session?<h1 className="cursor-pointer" onClick={async()=>{
@@ -148,6 +148,8 @@ function Header({data,posts}) {
                         </Link>
                 <h1 onClick={()=>router.push("/ofertas")}
                 className="cursor-pointer lg:hover:translate-y-3  hover:text-white hover:transition-transform ">Ofertas</h1>
+                <h1 onClick={()=>router.push("/orders")}
+                className="cursor-pointer   hover:text-white hover:transition-transform ">Orders</h1>
                 </div>
                 </div>
                 </div>

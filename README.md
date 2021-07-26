@@ -30,3 +30,23 @@ Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&ut
 
 
 
+
+const serviceAccount =require('../../permission.json')
+const app =!admin.apps.length ? admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount)
+}) : admin.app()
+
+const fullfillOrder=async (session)=>{
+
+ return app.firestore().collection("users")
+ .doc(session.metadata.email)
+ .collection("orders").doc(session.id).set({
+     amount: session.amount_total /100,
+     amount_shipping:session.total_datails.amount_shipping /100,
+     images:JSON.parse(session.metadata.images),
+     timestamp: admin.firestore.FieldValue.serverTimestamp(),
+ })
+ .then(()=>{
+     console.log(`SECCES:order ${session.id} had been added to the db`);
+ })
+}

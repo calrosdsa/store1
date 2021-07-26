@@ -10,9 +10,9 @@ apiKey: "AIzaSyAYY0IB60PYJwTcRL1vxK-sXifW3CO-XO4",
     measurementId: "G-VS8KWKW32X"
   };
 
-  export default function firebaseClient(){
-    if (!firebase.apps.length){
-      firebase.initializeApp(FIREBASE_CONFIG);
-    }
-  }
-  
+ const app=!firebase.apps.length
+ ? firebase.initializeApp(FIREBASE_CONFIG)
+ :firebase.app();
+
+ const db=app.firestore()
+ export default db

@@ -19,6 +19,7 @@
     "firebase-admin": "^9.11.0",
     "framer-motion": "^4.1.17",
     "micro": "^9.3.4",
+    "moment": "^2.29.1",
     "next": "latest",
     "next-auth": "^3.27.3",
     "nookies": "^2.5.2",

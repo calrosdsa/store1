@@ -17,7 +17,7 @@ function CheckoutProduct({title,slug,price,image,description,id}) {
             <h1 className="text-base font-bold">{title}</h1>
             <div className="grid grid-cols-2 md:grid-cols-5" >
                 <div onClick={()=>router.push(`../product/${encodeURIComponent(slug)}`)} 
-                className="w-[120px] sm:w-[150px] md:w-[160px] lg:w-[200px]"
+                className="w-[100px] sm:w-[150px] md:w-[160px] lg:w-[200px]"
                 >
 
             <img

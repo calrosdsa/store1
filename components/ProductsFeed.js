@@ -3,8 +3,8 @@ import Prodcuts from './Prodcuts'
 function ProductsFeed({posts}) {
     
     return (
-        <div className=" overflow-x-auto  ">
-        <div className="flex  mt-10 m-4">
+        <div className=" overflow-x-auto mt-20 ">
+        <div className="flex ">
             {posts.map(({title,slug,id,image,description,specifications,regular_price})=>(
                 <Prodcuts
                 key={id}

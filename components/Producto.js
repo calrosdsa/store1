@@ -60,7 +60,7 @@ function Producto({title,id,description,image,regular_price,specifications,slug}
                 }
                
             </div>
-<p className="col-span-2 md:col-span-1  md:col-start-2 md:-mt-16  lg:-mt-20 xl:-mt-32  md:text-sm font-medium text-xs mx-2 ">{description}</p>
+<p className="col-span-2 md:col-span-1 mt-14p md:col-start-2 md:-mt-16  lg:-mt-20 xl:-mt-32  md:text-sm font-medium text-xs mx-2 ">{description}</p>
 <button onClick={()=>setSelectedImage(image)}   className="bg-gray-900 absolute top-32  w-[90px] ml-3 text-gray-500 col-start-2  min-w-[20px]  md:font-bold rounded-lg">
 <h1 onClick={addItemToBasket}>Add to Cart</h1>
     {selectedImage&&(

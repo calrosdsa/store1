@@ -22,7 +22,7 @@ function Checkout({categories}) {
       const checkoutSession=await axios.post('/api/create-checkout-session',
       {
          items:items,
-         email:user.email,
+         email:session.user.email,
       }
       );
       const result=await stripe.redirectToCheckout({
@@ -33,7 +33,9 @@ function Checkout({categories}) {
       }
      }
     return ( 
-        <div className="relative">
+      <>
+
+        <div className="">
                 <Header data={categories}/>
           <img src="https://links.papareact.com/ikj" 
           className="h-28 mt-32 px-1 lg:col-span-4 xl:ml-20 sm:px-6 w-[900px] py-2 sm:h-[160px] " alt="" />
@@ -52,11 +54,11 @@ function Checkout({categories}) {
               className={`bg-gray-400 mt-2 h-8 p-1 lg:ml-10 text-black text-base font-semibold ml-2 rounded-md
               ${!session&& "bg-gray-300 "}`}>{ !user && !session? 'Sign in to Checkout':'Proced to checkout'}</button>
 
-              <img className="hidden lg:block col-span-2   lg:h-[100px] my-7 min-w-[400px] 2xl:min-w-[600px]  xl:h-[150px]  " 
+              <img className="hidden lg:block col-span-1   lg:h-[100px] my-7 min-w-[300px] 2xl:min-w-[600px]  xl:h-[150px]  " 
                       src="https://www.isidroperez.com/wp-content/uploads/2017/12/descuentos1.jpg" alt="" />
-              <img className="hidden lg:block col-span-2   lg:h-[100px] my-7 min-w-[400px] 2xl:min-w-[600px]  xl:h-[150px]  " 
+              <img className="hidden lg:block col-span-1   lg:h-[100px] my-7 min-w-[300px] 2xl:min-w-[600px]  xl:h-[150px]  " 
                       src="https://links.papareact.com/dyz" alt="" />
-                      <img className="hidden lg:block col-span-2   lg:h-[100px] my-7 min-w-[400px] 2xl:min-w-[600px] xl:h-[150px]  " 
+                      <img className="hidden lg:block col-span-1   lg:h-[100px] my-7 min-w-[300px] 2xl:min-w-[600px] xl:h-[150px]  " 
                       src="https://c0.wallpaperflare.com/preview/447/552/983/ecommerce-online-shop-euro.jpg"  alt="" />
        </div>
             <div className=" ">
@@ -68,7 +70,7 @@ function Checkout({categories}) {
                 <h1 className="text-sm sm:text-base md:text-lg border-b-4 border-gray-300 font-bold italic text-gray-700 tracking-wider">
                   {items.length===0 ?`Your Basket is empty`:`Shopping Basket`}</h1>
                   {items.map((item,i)=>(
-                      <CheckoutProduct
+                    <CheckoutProduct
                       key={item.id}
                       slug={item.slug}
                       id={item.id}
@@ -80,12 +82,13 @@ function Checkout({categories}) {
                       ))}
              </div>
                 </div>
-            </main>
-            <div className="mt-[400px] xl:mt-[600px]">
-
+            <div className="col-span-8   mt-[400px] xl:mt-[600px]">
 <Footer/>
             </div>
+            </main>
+
                       </div>
+                      </>
     
     )
 }
