@@ -16,7 +16,7 @@ import Footer from '../components/Footer';
 
         <div className="grid xl:grid-cols-5 my-40">
             <Header data={categories}/>
-            {user?(
+            {session?(
                 <h2 className="xl:text-2xl text-xl font-bold italic  border-b-4 border-gray-600  col-start-3 mx-auto">Your orders</h2>
                 ):(<h2 className="my-40 -mt-1 xl:text-2xl font-bold italic  border-b-4 border-gray-600  col-start-3 mx-auto">
                 Please Sign In to see your orders</h2>
