@@ -50,7 +50,6 @@ function Checkout({categories}) {
               <button 
               role="link"
               onClick={createCheckoutSession}
-              disabled={!user && !session}
               className={`bg-gray-400 mt-2 h-8 p-1 lg:ml-10 text-black text-base font-semibold ml-2 rounded-md
               ${!session&& "bg-gray-300 "}`}>{ !user && !session? 'Sign in to Checkout':'Proced to checkout'}</button>
 
