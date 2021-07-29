@@ -1,93 +1,92 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState} from 'react'
 import {useRouter} from 'next/router'
 import {useDispatch} from 'react-redux'
 import {addToBasket} from '../slice/basketSlice'
-import {motion,AnimatePresence,AnimateSharedLayout} from 'framer-motion'
+import styles from "../styles/Product.module.css"
+import Image from 'next/image'
+import Link from 'next/link'
+import QuickView from './QuickView'
+import { 
+  EyeIcon,
+} from '@heroicons/react/outline'
 import {StarIcon} from '@heroicons/react/solid'
-
+import Currency from 'react-currency-formatter'
+import Fade from 'react-reveal/Fade';
 const MAX_RATING=5;
 const MIN_RATING=1;
 
-function Prodcuts({slug,id, title,image,description,specifications,regular_price,discount_price}) {
+function Prodcuts({slug,id, title,product_image,size,description,setShowCart,colors,regular_price,products}) {
   const price=parseFloat(`${regular_price}`, 10)
+  const image=product_image
   const router=useRouter();
-  const [selectedImage,setSelectedImage]=useState(null)
   const dispatch=useDispatch();
-
+  const [showQuick, setShowQuick] = useState(false)
+  const [added, setAdded] = useState(false)
   const addItemToBasket=()=>{
-    const product={slug,id, title,image,description,specifications,price}
+    const product={id, title,image,description,price,quantity:0.5}
     dispatch(addToBasket(product))
-  }
+    dispatch(addToBasket(product))
+            setShowCart(true)
+            setAdded(true)
+            setTimeout(() => setAdded(false), 2000)
+        }
+  
   const [rating] = useState(  
     Math.floor(Math.random()*(MAX_RATING - MIN_RATING  +1)) +MIN_RATING
 );
-useEffect(()=>{
-  setTimeout(()=>setSelectedImage([]),2000);
-},[selectedImage])
+
+
+
+
   return (
-    <div className="">
+    <>
 
-    <AnimateSharedLayout type="crossfade">
+    <Fade  bottom>
+    <>
 
 
-        <div className="bg-gray-200 m-1 p-1 " key={id} onClick={()=>router.push(`../product/${encodeURIComponent(slug)}`)} >
-            <h1 className="text-xs mx-1 line-clamp-1 md:text-sm font-bold">{title}</h1>
-            <div className="m-1  w-[110px] sm:w-[135px] lg:w-[190px] 2xl:w-[300px]" >
-            <motion.img
-            key={id}
-            layoutId={image}
-          src={image}
-          className=" cursor-pointer sm:shadow-xl  w-[110px] h-[110px] sm:w-[135px] sm:h-[135px] md:w-[150px] md:h-[150px] lg:w-[170px] lg:h-[170px] 2xl:w-[300px] 2xl:h-[300px] object-contain"
-          
-          />
-            <p className="text-xs line-clamp-2 font-semibold">{description}</p>
-            <div className="flex">
-                {Array(rating)
-                .fill()
-                .map((_, i) => (
-                  <StarIcon height={20} className="text-yellow-500"/>
-                  ))
-                }
-               
-            </div>
-            <h1 className="font-bold ">${regular_price}</h1>
-                {discount_price?
-                <div   className="font-bold flex">Descuento <h2 className="bg-red-700 text-gray-200 sm:p-1 sm:ml-4 ml-1 -mt-3 rounded-full">
-                  {discount_price}%
-                  </h2>
-                  </div>
-                  :
-                  <div></div>
-                }
-              </div>
-        </div>
-          <div className="mx-2">
-        <button  className="bg-gray-800 text-white p-2 min-w-full rounded-md"  onClick={()=>setSelectedImage(image)}  >
-         <h1 onClick={addItemToBasket}>
-           Add to Basket
-           </h1> 
-          {selectedImage &&(
-            
-        <AnimatePresence>
-            <div
-              
-              layoutId={selectedImage}
-              
-              className="fixed  top-10 right-1 md:top-16 md:right-0  lg:h-20 lg:w-[200px]">
-            <motion.img
-              initial={{ y: -300, opacity: 1 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: -300, opacity: 1 }}
-              className="w-[70px] object-contain md:w-[150px] 2xl:w-[200px] text-gray-300"   src={selectedImage} 
-              />
-          
-            </div>
-        </AnimatePresence>
-          )}
-          </button>
-          </div>
-          </AnimateSharedLayout>
-          </div>
+
+    <div  className={"relative flex flex-col m-1 sm:m-2 z-40 bg-gray-100 p-1 sm:p-3 md:p-5 lg:p-7 rounded-xl " + styles.loop_product}>
+                    <div className={`relative hover:filter  hover:brightness-75 mx-auto  w-11/12 h-10/12   ${styles.product_image_wrapper}`}>
+                        <img className={"cursor-pointer object-contain rounded-2xl  h-[130px] sm:h-[150px] md:h-[200px]  overflow-hidden  " + styles.loop_product_image} 
+                        loading="lazy" 
+        src={product_image}  />
+                        <div onClick={() => setShowQuick(true)} className={ `rounded-lg cursor-pointer ${styles.product_image_overly}`}>
+                            <div className={`bg-gray-900 text-white rounded-lg ${styles.product_image_overly_button}`}>
+                                <span>Quick View</span>
+                                <EyeIcon className="h-6" />
+                            </div>
+                        </div>
+                    </div>
+                    <Link href={`../product/${slug}`}>
+                        <h4 title={title} className="cursor-pointer my-3 font-bold">{title}</h4>
+                    </Link>
+                    
+                    <div className="flex">
+                        {Array(rating).fill().map((_, index) => (
+                            <StarIcon key={index} className="h-5 text-yellow-500" />
+                        ))}
+                    </div>
+                    <p className="text-xs my-2 line-clamp-2">{description}</p>
+                    <div className="mb-1">
+                       <h1>{regular_price}</h1>
+                    </div>
+                    <div>{size && size.map(talla=>talla).join(' ,')}
+                </div>
+                    <div className="flex items-center my-4">
+                        {colors && colors.map(color => (
+                            <div key={Math.random()} className={`w-7 h-7 border-gray-200 border-4 rounded-full mx-1`} style={{ background: color }}/>
+                        ))}
+                    </div>
+                    <button title="Add to cart " onClick={addItemToBasket} className="mt-auto bg-gray-900 text-gray-300 p-1 sm:p-2 rounded-lg">{added ? 'Added' : 'Add to Basket'}</button>
+                </div>
+          </>
+          </Fade>
+        {showQuick && 
+             <QuickView setShowQuick={setShowQuick} id={id} products={products} 
+             />}
+
+          </>
     )
 }
 

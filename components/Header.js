@@ -1,26 +1,27 @@
 import React,{Fragment,useState}from 'react'
 import {useRouter} from 'next/router'
 import {Menu,Transition,Listbox} from '@headlessui/react'
+import { selectTotalItems } from "../slice/basketSlice";
 import {ArrowDownIcon,HomeIcon,SearchIcon,ShoppingCartIcon,XIcon,UserIcon} from "@heroicons/react/solid"
 import {useSelector} from "react-redux"
-import {selectItems} from "../slice/basketSlice"
 import {useSession,signIn,signOut} from 'next-auth/client'
 import { useAuth } from '../auth' 
 import Sidebar from './Sidebar'
 import Link from 'next/link'
 import firebase from 'firebase/app'
+import SideCart from './SideCart';
 
-function Header({data,posts}) {
+function Header({setShowCart,showCart,data,produts}) {
    const{user}=useAuth()
     const [session]=useSession();
-    const items=useSelector(selectItems)
+    const selectTotalItem = useSelector(selectTotalItems)
     const [keyword,setKeyword]=useState([]);
     const [wordEnter, setWordEnter]=useState('');
     const router=useRouter();
     const handleFilter=(event)=>{
     const searchWord=event.target.value
     setWordEnter(searchWord)
-    const newFilter=posts.filter((post)=>{
+    const newFilter=produts.filter((post)=>{
         return post.title.toLowerCase().includes(searchWord.toLowerCase())
     })
     if (searchWord==""){
@@ -34,9 +35,10 @@ function Header({data,posts}) {
         setWordEnter('')
     }
     return (
-        <header className="relative">
+        <>
+        <header  className="header" style={{ position: 'sticky', top: 0, zIndex: 50 }}>
 
-        <div className="fixed top-0 right-0 left-0 ">
+        <div className="-mb-20">
 
             <div  className="relative  grid grid-rows-3  grid-cols-3 md:grid-rows-2 md:grid-cols-5  bg-gray-900 md:p-1">
             <div className="col-start-1 row-start-1 md:row-start-2 m-1 ">
@@ -48,13 +50,13 @@ function Header({data,posts}) {
                 Ashop
         </h1>
                 </div>
-                <div className="relative flex m-1 space-x-3 md:space-x-6 xl:space-x-12 md:mr-5 col-start-3 justify-end md:col-start-5">
+                <div className="relative flex m-1 space-x-3 md:space-x-6 xl:space-x-12  col-start-3 justify-end md:col-start-5">
                 <ShoppingCartIcon onClick={()=>router.push('../checkout/')} className="h-7 md:h-8  xl:h-9 text-gray-400  hover:text-white  "/>
-                <HomeIcon onClick={()=>router.push("/")}  className="h-7 md:h-8  xl:h-9 mr-4 text-gray-400 hover:text-white"/>
-                {items ==0?<span className="absolute bg-gray-900 text-gray-100 right-8 -top-1"></span>:
-                <span className="absolute  text-gray-900 rounded-full pl-1  text-sm md:text-base 2xl:text-xl 2xl:pl-2 
-                font-extrabold  2xl:w-[27px] w-[20px]  right-6 md:right-12  lg:right-20  bg-gray-200 -top-1">{items.length}</span>
-            
+                <HomeIcon onClick={()=>router.push("/")}  className="h-7 md:h-8 xl:h-9 mr-4 text-gray-400 hover:text-white"/>
+                {selectTotalItem?  
+                <span className="absolute   text-gray-700 rounded-full   text-xs md:text-base 2xl:text-xl  
+                font-extrabold  2xl:w-[27px] w-[22px]  right-6 md:right-12  lg:right-11 xl:right-20  bg-gray-200 -top-1">{selectTotalItem}</span>
+                :<span></span>
             }
                 </div>
             <div className="row-start-2  relative md:row-start-1 md:col-start-2 col-span-3 ">
@@ -140,7 +142,7 @@ function Header({data,posts}) {
                         <p onClick={signOut}>
                         Sign Out
                             </p>
-                    </h1>:<h1 onClick={signIn}>
+                    </h1>:<h1 onClick={()=>router.push('../login')}>
                              Sign In
                         </h1>}</div>
                         <Link href="/trading">
@@ -154,6 +156,8 @@ function Header({data,posts}) {
                 </div>
                 </div>
                     </header>
+                   {showCart && <SideCart setShowCart={setShowCart} />}
+                </>
     )
 }
 

@@ -3,11 +3,11 @@ import Footer from '../components/Footer'
 import Header from '../components/Header'
 import ProductsFeed4 from '../components/ProductsFeed4'
 
-function ofertas({categories,posts}) {
+function ofertas({categories,products}) {
     return (
         <div>
             <Header data={categories}/>
-            <ProductsFeed4 posts={posts}/>  
+            <ProductsFeed4 products={products}/>  
             <Footer/>
         </div>
     )
@@ -16,12 +16,12 @@ function ofertas({categories,posts}) {
 export default ofertas
 export async function getStaticProps(){
     const res= await fetch(`https://djangoapi3.herokuapp.com/api/`)
-    const posts= await res.json();
+    const products= await res.json();
     const ress=await fetch(`https://djangoapi3.herokuapp.com/api/category/`)
   const categories=await ress.json();
     return{
         props:{
-            posts,
+            products,
             categories,
         }
     }

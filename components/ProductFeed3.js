@@ -1,52 +1,45 @@
 import React from 'react'
 import Prodcuts from './Prodcuts'
-function ProductsFeed3({posts}) {
-    
+function ProductsFeed3({products,setShowCart}) {
     return (
-        <div className="sm:grid-flow-row-dense mx-auto  my-16 m-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-            {posts.sort(() => Math.random() - Math.random()).slice(0,5).map(({title,slug,id,image,description,specifications,regular_price})=>(
+        <div className="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-5 mb-20 mt-24  grid-flow-row-dense">
+
+            {products && products.slice(0,8).map(({title,colors,size,slug,id,product_image,description,regular_price})=>(
                 <Prodcuts
                 key={id}
+                setShowCart={setShowCart}
+                products={products}
+                size={size}
                 id={id}
+                colors={colors}
                 title={title}
-                image={image}
+                product_image={product_image[0].product_image}
                 description={description}
+                setShowCart={setShowCart}
                 slug={slug}
-                specifications={specifications}
                 regular_price={regular_price}
                 />
                 ))}
-        <img className="col-span-full h-[130px] md:h-[200px] lg:h-[300px] my-2 min-w-full place-items-center" src="https://links.papareact.com/dyz" alt="" />
-        <div className="md:col-span-2 ">
+                <img className=" col-span-full h-[130px] md:h-[200px] lg:h-[300px] my-3 min-w-full place-items-center" src="https://links.papareact.com/dyz" alt="" />
 
-        {posts.slice(5,6).map(({title,slug,id,image,description,specifications,regular_price})=>(
+        {products && products.slice(8,products.lentgh).map(({title,colors,slug,id,product_image,description,discount_price,specifications,regular_price})=>(
             <Prodcuts
             key={id}
-            id={id}
+            products={products}
+            id={id} 
+            colors={colors}
             title={title}
-            image={image}
+            product_image={product_image[0].product_image}
             description={description}
             slug={slug}
-            specifications={specifications}
+            setShowCart={setShowCart}
             regular_price={regular_price}
             />
             ))}
-                </div>
-        {posts.slice(6,14).map(({title,slug,id,image,description,specifications,regular_price})=>(
-            <Prodcuts
-            key={id}
-            id={id}
-            title={title}
-            image={image}
-            description={description}
-            slug={slug}
-            specifications={specifications}
-            regular_price={regular_price}
-            />
-            ))}
-    </div>
-
-)
+        </div>
+    )
 }
+
+
 
 export default ProductsFeed3

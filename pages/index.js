@@ -4,27 +4,30 @@ import ProductsFeed from '../components/ProductsFeed'
 import { getSession } from 'next-auth/client';
 import { useAuth } from '../auth'
 import Link from "next/link"
+import {addProducts} from '../slice/basketSlice'
+import { useDispatch } from "react-redux";
 import ProductsFeed3 from '../components/ProductFeed3';
 import Footer from '../components/Footer';
-export default function Home({posts, categories}) {
+import { useState,useEffect } from 'react';
+export default function Home({products, categories}) {
   const{user}=useAuth();
-  
+  const dispatch=useDispatch();
+  const [showCart,setShowCart]=useState(false);
+  useEffect(()=>{
+  dispatch(addProducts(products))
+  },[products])
   return (
-    <div className="relative ">
+    <div className=" ">
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Header  data={categories} posts={posts}/>
+      <Header  data={categories} products={products} setShowCart={setShowCart} showCart={showCart}/>
 <img className="min-w-full h-[200px] md:h-[300px] lg:h-[400px] xl:h-[500px] mt-[100px]" src="https://c0.wallpaperflare.com/preview/447/552/983/ecommerce-online-shop-euro.jpg" alt="" />
 
-    <ProductsFeed3  posts={posts}/> 
+    <ProductsFeed3  products={products} setShowCart={setShowCart}/> 
     <h1 className="text-xl font-bold italic ml-2 border-b-4 mt-5 border-gray-400">En Oferta</h1>
-    <ProductsFeed  posts={posts}/> 
-    <h1 className="text-xl font-bold italic ml-2 border-b-4 mt-5 border-gray-400">Lo mas vendido</h1>
-    <ProductsFeed  posts={posts}/> 
-
     
     <div>
 
@@ -39,16 +42,16 @@ export default function Home({posts, categories}) {
   )
 }
 
-export async function getStaticProps(){
+export async function getServerSideProps(){
   const res = await fetch("https://djangoapi3.herokuapp.com/api/");
-  const posts= await res.json();
+  const products= await res.json();
   const ress=await fetch("https://djangoapi3.herokuapp.com/api/category/")
   const categories=await ress.json();
   
  ;
   return{
     props:{
-      posts,
+      products,
       categories,
     }
   }

@@ -1,7 +1,7 @@
 import React,{useState,Fragment} from 'react'
 import {Menu,Transition} from '@headlessui/react'
 import {useSession} from 'next-auth/client'
-import {MenuAlt1Icon,UserIcon,PhoneIcon,ShoppingCartIcon,ShareIcon,StarIcon,ExclamationCircleIcon, InformationCircleIcon} from '@heroicons/react/solid'
+import {MenuAlt1Icon,UserIcon,PhoneIcon,ShoppingCartIcon,ShareIcon,StarIcon,FilterIcon, InformationCircleIcon} from '@heroicons/react/solid'
 import Icons from './Icons';
 import {useRouter} from 'next/router'
 function Sidebar() {
@@ -42,8 +42,8 @@ function Sidebar() {
               </Menu.Item>
               <Menu.Item>
               {({active})=>(
-                <div className={`${active ? "bg-gray-600 text-white":"text-gray-700"}`} >
-        <Icons Icon={PhoneIcon} title="Contact us"/>
+                <div onClick={()=>router.push('../product')} className={`${active ? "bg-gray-600 text-white":"text-gray-700"}`} >
+        <Icons Icon={FilterIcon} title="Filter Product"/>
                 </div>
                 )}
               </Menu.Item>
