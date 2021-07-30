@@ -1,10 +1,9 @@
 import React from 'react'
 import CheckoutProduct from '../components/CheckoutProduct'
 import {useSelector} from 'react-redux'  
-import {useSession} from 'next-auth/client'
 import {selectItems,selectTotal} from '../slice/basketSlice'
 import Header from '../components/Header'
-import { useAuth } from '../auth'
+import { useUser } from '@auth0/nextjs-auth0'
   import axios from "axios";
 import {loadStripe} from "@stripe/stripe-js"
 import Footer from '../components/Footer'
@@ -12,16 +11,16 @@ const stripePromise=loadStripe(process.env.stripe_public_key)
 function Checkout({categories}) {
     const items=useSelector(selectItems)
     const total=useSelector(selectTotal)
-   const [session ] =useSession();
+    const {user}=useUser();
    async function createCheckoutSession() {
     const stripe = await stripePromise;
 
-    // Call the backend to create a checkout session...
+    // Call the backend to create a checkout user...
     const checkoutSession = await axios.post(
         "/api/create-checkout-session",
         {
             items,
-            email: session.user.email,
+            email:user.email,
         }
     );
 
@@ -52,8 +51,9 @@ function Checkout({categories}) {
               <button 
               role="link"
               onClick={createCheckoutSession}
+              disabled={!user}
               className={`bg-gray-400 mt-2 h-8 p-1 lg:ml-10 text-black text-base font-semibold ml-2 rounded-md
-              ${!session&& "bg-gray-300 "}`}>{!session? 'Sign in to Checkout':'Proced to checkout'}</button>
+              ${!user&& "bg-gray-300 "}`}>{!user? 'Sign in to Checkout':'Proced to checkout'}</button>
 
               <img className="hidden xl:block col-span-1   lg:h-[100px] my-7 min-w-[300px] 2xl:min-w-[600px]  xl:h-[150px]  " 
                       src="https://www.isidroperez.com/wp-content/uploads/2017/12/descuentos1.jpg" alt="" />

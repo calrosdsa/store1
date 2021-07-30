@@ -4,16 +4,13 @@ import {Menu,Transition,Listbox} from '@headlessui/react'
 import { selectTotalItems } from "../slice/basketSlice";
 import {ArrowDownIcon,HomeIcon,SearchIcon,ShoppingCartIcon,XIcon,UserIcon} from "@heroicons/react/solid"
 import {useSelector} from "react-redux"
-import {useSession,signIn,signOut} from 'next-auth/client'
-import { useAuth } from '../auth' 
 import Sidebar from './Sidebar'
 import Link from 'next/link'
-import firebase from 'firebase/app'
+import { useUser } from '@auth0/nextjs-auth0';
 import SideCart from './SideCart';
 
 function Header({setShowCart,showCart,data,produts}) {
-   const{user}=useAuth()
-    const [session]=useSession();
+   const{user}=useUser();
     const selectTotalItem = useSelector(selectTotalItems)
     const [keyword,setKeyword]=useState([]);
     const [wordEnter, setWordEnter]=useState('');
@@ -50,8 +47,8 @@ function Header({setShowCart,showCart,data,produts}) {
                 Ashop
         </h1>
                 </div>
-                <div className="relative flex m-1 space-x-3 md:space-x-6 xl:space-x-12  col-start-3 justify-end md:col-start-5">
-                <ShoppingCartIcon onClick={()=>router.push('../checkout/')} className="h-7 md:h-8 mr-3 xl:h-9 text-gray-400  hover:text-white  "/>
+                <div className="relative flex m-1 space-x-3 md:ml-3  md:space-x-6 xl:space-x-12  col-start-3 justify-end md:col-start-5">
+                <ShoppingCartIcon onClick={()=>router.push('../checkout/')} className="h-7 md:h-8  mr-3  xl:h-9 text-gray-400  hover:text-white  "/>
                 <HomeIcon onClick={()=>router.push("/")}  className="h-7 md:h-8 xl:h-9 mr-4 text-gray-400 hover:text-white"/>
                 {selectTotalItem?  
                 <span className="absolute   text-gray-200 rounded-full   text-lg  2xl:text-xl  
@@ -137,12 +134,12 @@ function Header({setShowCart,showCart,data,produts}) {
                  className="whitespace-nowrap   lg:hover:translate-y-3  hover:text-white hover:transition-transform ">
                      
                     
-                     {user||session?<h1 className="cursor-pointer" onClick={async()=>{
-                    await firebase.auth().signOut()}}>
-                        <p onClick={signOut}>
+                     {user?
+                     <h1 className="cursor-pointer" onClick={()=>router.push('/api/auth/logout')}>
                         Sign Out
-                            </p>
-                    </h1>:<h1 onClick={()=>router.push('../login')}>
+                    </h1>
+                    :
+                    <h1 onClick={()=>router.push('/api/auth/login')}>
                              Sign In
                         </h1>}</div>
                         <Link href="/trading">

@@ -1,11 +1,11 @@
 import React,{useState,Fragment} from 'react'
 import {Menu,Transition} from '@headlessui/react'
-import {useSession} from 'next-auth/client'
 import {MenuAlt1Icon,UserIcon,PhoneIcon,ShoppingCartIcon,ShareIcon,StarIcon,FilterIcon, InformationCircleIcon} from '@heroicons/react/solid'
+import { useUser } from '@auth0/nextjs-auth0';
 import Icons from './Icons';
 import {useRouter} from 'next/router'
 function Sidebar() {
-  const [session]=useSession();
+  const {user} = useUser();
   const router=useRouter();
     return (
       <div className=" focus:outline-none    text-gray-300    left-3">
@@ -32,10 +32,10 @@ function Sidebar() {
             <Menu.Item className="ml-2">
               {({active})=>(
                 <div className={`${active ? "bg-gray-600 text-white":"text-gray-700"}`} >
-                {!session?
+                {!user?
                   <Icons Icon={UserIcon} title="User"/>
                   :
-                  <Icons src={session.user.image} title={session.user.name}/>
+                  <Icons src={user.picture} title={user.name}/>
                 }
                 </div>
                 )}
