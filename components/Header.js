@@ -51,11 +51,11 @@ function Header({setShowCart,showCart,data,produts}) {
         </h1>
                 </div>
                 <div className="relative flex m-1 space-x-3 md:space-x-6 xl:space-x-12  col-start-3 justify-end md:col-start-5">
-                <ShoppingCartIcon onClick={()=>router.push('../checkout/')} className="h-7 md:h-8  xl:h-9 text-gray-400  hover:text-white  "/>
+                <ShoppingCartIcon onClick={()=>router.push('../checkout/')} className="h-7 md:h-8 mr-3 xl:h-9 text-gray-400  hover:text-white  "/>
                 <HomeIcon onClick={()=>router.push("/")}  className="h-7 md:h-8 xl:h-9 mr-4 text-gray-400 hover:text-white"/>
                 {selectTotalItem?  
-                <span className="absolute   text-gray-700 rounded-full   text-xs md:text-base 2xl:text-xl  
-                font-extrabold  2xl:w-[27px] w-[22px]  right-6 md:right-12  lg:right-11 xl:right-20  bg-gray-200 -top-1">{selectTotalItem}</span>
+                <span className="absolute   text-gray-200 rounded-full   text-lg  2xl:text-xl  
+                font-extrabold  2xl:w-[27px] w-[22px]  right-8 underline md:right-12  lg:right-11 xl:right-16   -top-0">{selectTotalItem}</span>
                 :<span></span>
             }
                 </div>

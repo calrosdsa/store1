@@ -34,7 +34,7 @@ function SideCart({setShowCart}) {
                                 </div>
                                 <div className="text-gray-400">
                                     <Currency
-                                        quantity={item.price}
+                                        quantity={item.regular_price}
                                     />
                                 </div>
                             </div>

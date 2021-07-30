@@ -28,9 +28,9 @@ function QuantityCount({ setQuantity, quantity = 1, dispatch = false, id = null 
 
     return (
         <div className={styles.quantityCount}>
-            <button onClick={decreaseCount} className={styles.actionBtn}>-</button>
+            <button  onClick={decreaseCount} className="bg-gray-200  rounded-lg p-3 h-8 w-8 md:h-9 xl:h-13 md:w-9 xl:w-13 xl:p-3  items-center justify-center flex font-extrabold ">-</button>
             <div className={styles.counter}>{quantity}</div>
-            <button onClick={increaseCount} className={styles.actionBtn}>+</button>
+            <button onClick={increaseCount} className="bg-gray-200  rounded-lg p-3 h-8 w-8 md:h-9 xl:h-13 md:w-9 xl:w-13 xl:p-3  items-center justify-center flex font-extrabold">+</button>
         </div>
     )
 }

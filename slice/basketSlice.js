@@ -62,7 +62,7 @@ export const { addToBasket, removeFromBasket, updateQuantity, addProducts, updat
 export const selectItems = (state) => state.basket.items;
 export const selectProducts = (state) => state.basket.products;
 export const selectFilteredProducts = (state) => state.basket.filteredProducts;
-export const selectTotal = (state) => state.basket.items.reduce((total, item) => total + item.price * item.quantity, 0);
+export const selectTotal = (state) => state.basket.items.reduce((total, item) => total + item.regular_price * item.quantity, 0);
 export const selectTotalItems = (state) => state.basket.items.reduce((total, item) => total + item.quantity, 0);
 
 export default basketSlice.reducer;

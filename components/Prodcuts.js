@@ -3,7 +3,6 @@ import {useRouter} from 'next/router'
 import {useDispatch} from 'react-redux'
 import {addToBasket} from '../slice/basketSlice'
 import styles from "../styles/Product.module.css"
-import Image from 'next/image'
 import Link from 'next/link'
 import QuickView from './QuickView'
 import { 
@@ -12,32 +11,40 @@ import {
 import {StarIcon} from '@heroicons/react/solid'
 import Currency from 'react-currency-formatter'
 import Fade from 'react-reveal/Fade';
+import {useToast,Box} from '@chakra-ui/react'
+
 const MAX_RATING=5;
 const MIN_RATING=1;
 
 function Prodcuts({slug,id, title,product_image,size,description,setShowCart,colors,regular_price,products}) {
-  const price=parseFloat(`${regular_price}`, 10)
-  const image=product_image
-  const router=useRouter();
-  const dispatch=useDispatch();
+    const image=product_image
+    const router=useRouter();
+    const toast=useToast();
+    const dispatch=useDispatch();
+    const [rating] = useState(  
+      Math.floor(Math.random()*(MAX_RATING - MIN_RATING  +1)) +MIN_RATING
+    );
   const [showQuick, setShowQuick] = useState(false)
   const [added, setAdded] = useState(false)
   const addItemToBasket=()=>{
-    const product={id, title,image,description,price,quantity:0.5}
+    const product={id, title,image,description,regular_price,quantity:1}
     dispatch(addToBasket(product))
-    dispatch(addToBasket(product))
-            setShowCart(true)
-            setAdded(true)
-            setTimeout(() => setAdded(false), 2000)
-        }
+    toast({
+        position: "top-right",
+        duration:2000,
+        render: () => (
+          <Box color="White" p={3} bg="blue.500">
+              <div className=" bg-green-600 ml-10 md:ml-1 p-3 rounded-lg flex flex-col ">
+                  <h2>Added!!</h2>
+            {product.title}
+            <img className="w-[80px] lg:w-[120px] h-[65px] lg:h-[100px]" src={product.image} alt="" />
+              </div>
+          </Box>
+        ),
+      })
+}
+
   
-  const [rating] = useState(  
-    Math.floor(Math.random()*(MAX_RATING - MIN_RATING  +1)) +MIN_RATING
-);
-
-
-
-
   return (
     <>
 
@@ -69,7 +76,7 @@ function Prodcuts({slug,id, title,product_image,size,description,setShowCart,col
                     </div>
                     <p className="text-xs my-2 line-clamp-2">{description}</p>
                     <div className="mb-1">
-                       <h1>{regular_price}</h1>
+                       <Currency quantity={regular_price} />
                     </div>
                     <div>{size && size.map(talla=>talla).join(' ,')}
                 </div>
@@ -83,7 +90,7 @@ function Prodcuts({slug,id, title,product_image,size,description,setShowCart,col
           </>
           </Fade>
         {showQuick && 
-             <QuickView setShowQuick={setShowQuick} id={id} products={products} 
+             <QuickView setShowQuick={setShowQuick} id={id} key={id} products={products} 
              />}
 
           </>

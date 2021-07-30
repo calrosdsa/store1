@@ -11,7 +11,6 @@ function ProductsFeed3({products,setShowCart}) {
                 products={products}
                 size={size}
                 id={id}
-                colors={colors}
                 title={title}
                 product_image={product_image[0].product_image}
                 description={description}
@@ -27,7 +26,6 @@ function ProductsFeed3({products,setShowCart}) {
             key={id}
             products={products}
             id={id} 
-            colors={colors}
             title={title}
             product_image={product_image[0].product_image}
             description={description}

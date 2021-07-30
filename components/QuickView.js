@@ -8,12 +8,10 @@ import Image from 'next/image'
 import QuantityCount from "../utils/QuantityCount"
 import { useRouter } from 'next/router';
 
-function QuickView({setShowQuick, id, products ,product_image}) {
+function QuickView({setShowQuick, id, products}) {
     const [product, setProduct] = useState({})
-    const [quantity, setQuantity] = useState(1)
     const dispatch = useDispatch()
     const router = useRouter()
-    const [added, setAdded] = useState(false)
     const MAX_RATING = 5
     const MIN_RATING = 1
     const [rating] = useState(
@@ -71,11 +69,8 @@ function QuickView({setShowQuick, id, products ,product_image}) {
                                     quantity={product?.regular_price}
                                     />
                             </p>
-                            <div className="row-start-1">
-                            <QuantityCount setQuantity={setQuantity} quantity={quantity} />
+                          
                             </div>
-                            </div>
-                            <button onClick={addItemToBasket} className="w-full p-1 xl:p-2 rounded-md button bg-gray-800 text-gray-300 mt-4">{added ? 'Added' : 'Add to Busket'}</button>
                             <button onClick={() => router.push('../product/' + product?.slug)} className="w-full p-1 xl:p-2 rounded-md  bg-gray-800 text-gray-300 button mt-4">View details</button>
                         </div>
                     </div>
