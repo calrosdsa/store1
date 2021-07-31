@@ -19,22 +19,22 @@ const app =!admin.apps.length ? admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
 }) : admin.app();
 
-const fullfillOrder = async (session) => {
+const fullfillOrder = async (user) => {
     try {
       return app
         .firestore()
         .collection("users")
-        .doc(session.metadata.email)
+        .doc(user.metadata.email)
         .collection("orders")
-        .doc(session.id)
+        .doc(user.id)
         .set({
-          amount: session.amount_total / 100,
-          amount_shipping: session.total_details.amount_shipping / 100,
-          images: JSON.parse(session.metadata.images),
+          amount: user.amount_total / 100,
+          amount_shipping: user.total_details.amount_shipping / 100,
+          images: JSON.parse(user.metadata.images),
           timestamp: admin.firestore.FieldValue.serverTimestamp(),
         })
         .then(() => {
-          console.log(`SUCCESS : Order ${session.id} has been added to DB.`);
+          console.log(`SUCCESS : Order ${user.id} has been added to DB.`);
         });
     } catch (error) {
       console.error(error);

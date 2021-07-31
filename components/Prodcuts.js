@@ -16,7 +16,7 @@ import {useToast,Box} from '@chakra-ui/react'
 const MAX_RATING=5;
 const MIN_RATING=1;
 
-function Prodcuts({slug,id, title,product_image,size,description,setShowCart,colors,regular_price,products}) {
+function Prodcuts({slug,id, title,product_image,size,description,discount_price,setShowCart,colors,regular_price,products}) {
     const image=product_image
     const router=useRouter();
     const toast=useToast();
@@ -75,9 +75,14 @@ function Prodcuts({slug,id, title,product_image,size,description,setShowCart,col
                         ))}
                     </div>
                     <p className="text-xs my-2 line-clamp-2">{description}</p>
-                    <div className="mb-1">
+                    <div className="mb-1 flex justify-between mx-6 items-center text-lg">
                        <Currency quantity={regular_price} />
-                    </div>
+                       {discount_price&&
+                         <div className={`bg-red-400 ${discount_price&&'bg-red-500 text-white font-extrabold p-1 rounded-lg'}`}>{discount_price}%</div>
+                      }
+                       
+                       </div>
+                    
                     <div>{size && size.map(talla=>talla).join(' ,')}
                 </div>
                     <div className="flex items-center my-4">
